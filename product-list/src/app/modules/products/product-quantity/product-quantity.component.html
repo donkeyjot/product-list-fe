@@ -1,0 +1,10 @@
+<div class="quantity-box">
+  <button class="btn btn-light quantity-btn" (click)="quantityControl.setValue(quantityControl.value - 1)">
+    <i class="bi bi-dash-lg"></i>
+  </button>
+  <div class="text-center px-3">{{quantityControl.value + 'x'}}</div>
+  <button class="btn btn-light quantity-btn" type="button"
+          (click)="quantityControl.setValue(quantityControl.value + 1)">
+    <i class="bi bi-plus-lg"></i>
+  </button>
+</div>

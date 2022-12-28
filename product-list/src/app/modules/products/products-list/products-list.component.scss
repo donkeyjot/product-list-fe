@@ -1,0 +1,36 @@
+.product-price {
+  font-size: large;
+  justify-items: end;
+  text-align: end;
+}
+
+span.small-text {
+  color: grey;
+  font-size: 0.8em;
+}
+
+.totals-block {
+  padding: 50px 20px;
+  display: flex;
+  align-items: end;
+  margin-top: 1rem;
+}
+
+.total-price {
+  font-size: 1.5em;
+}
+
+thead {
+  text-transform: uppercase;
+  color: grey;
+}
+
+.spinner-big {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: 15vw;
+  height: 15vw;
+  margin: auto;
+  padding: 10rem;
+}

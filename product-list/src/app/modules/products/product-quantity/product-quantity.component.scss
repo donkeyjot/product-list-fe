@@ -1,0 +1,14 @@
+.quantity-box {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background: var(--bs-gray-100);
+  border-radius: 5px;
+  padding: 3px;
+  align-items: center;
+}
+
+.quantity-btn {
+  background: white;
+}

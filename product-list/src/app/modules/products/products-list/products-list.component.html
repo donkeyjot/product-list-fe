@@ -1,0 +1,80 @@
+<div class="container-xl">
+    <table class="table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template #loadingBlock>
+        <ng-container *ngIf="loading$ | async else noProducts">
+          <tr>
+            <td colspan="99">
+            <div class="spinner-border text-danger spinner-big" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #noProducts>
+          <tr>
+            <td colspan="99">
+              NO PRODUCTS
+            </td>
+          </tr>
+        </ng-template>
+      </ng-template>
+      <ng-container *ngIf="(products$ | async)?.length; else loadingBlock">
+        <tr class="align-middle" *ngFor="let product of products$ | async">
+          <td>
+            <img class="image rounded mx-auto d-none d-md-block" [src]="product.image" alt="" height="60px">
+          </td>
+          <td class="product-name col-6">
+            {{product.name | titlecase}}
+          </td>
+          <td class="quantity col-2">
+            <app-product-quantity [id]="product.id"></app-product-quantity>
+          </td>
+          <td class="product-price col-1" [ngClass]="product.price ? 'text-danger' : 'text-success'">
+            {{(product.price * product.quantity) | customCurrency }}
+          </td>
+          <td class="col-1">
+            <button
+              class="btn"
+              (click)="deleteProduct(product.id)">
+              <i class="bi bi-trash" size="auto"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  <div class="totals-block card">
+    <div *ngIf="(loading$ | async) && !(totalPrice$ | async); else totalsBlock">
+      <div class="spinner-border text-danger d-flex flex-column justify-content-end" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <ng-template #totalsBlock>
+      <div class="d-flex flex-column justify-content-end" *ngIf="totalPrice$ | async as totalPrice">
+        <span class="total-price text-danger">{{totalPrice | customCurrency}}</span>
+        <span class="small-text">Total price including VAT</span>
+      </div>
+      <div *ngIf="products$ | async as products">
+        <div *ngIf="((totalPrice$ | async) === 0)">
+          <div *ngIf="products.length > 0; else noProducts">
+            <span class="text-success">FREE</span>
+          </div>
+        </div>
+        <ng-template #noProducts>
+          <span class="text-warning">NO PRODUCTS</span>
+        </ng-template>
+      </div>
+    </ng-template>
+  </div>
+</div>
